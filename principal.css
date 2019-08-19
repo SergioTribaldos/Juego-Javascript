@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
+
+/*BARRA DE NAVEGACION*/
+nav{
+    border-bottom: 2px solid #1d2120;
+    background: #ba9077;
+    height: 60px;
+
+}
+#datosPersonaje {
+    margin-top: 0px;
+    padding-top: 9px;
+}
+#datosPersonaje li{
+    font-family: 'Amatic SC', cursive;
+    display: inline;
+    font-weight: bolder;
+    font-size: 140%;
+    margin-left: 160px;
+}
+#datosPersonaje span{
+    font-size: 160%;
+    margin-right: 9px;
+}
+#datosPersonaje li:nth-child(2) span {
+    color: crimson;
+}
+#datosPersonaje li:nth-child(3) span {
+    color: blue;
+}
+/*MAPA PRINCIPAL */
+#contenedor{
+    position: relative;
+    margin: auto;
+    height: 600px;
+    width: 1200px;
+    background-image: url("mapa.jpg");
+    background-size: cover;
+    z-index: 100;
+
+}
+img{
+    height: inherit;
+    width: inherit;
+    object-fit: contain;
+    border: 2px solid black;
+
+    margin: 0 auto;
+    justify-content: center;
+}
+
+/*FLECHA*/
+
+.flecha{
+    height: 50px;
+    width: 50px;
+    border: none;
+    position: absolute;
+    top: 50px;
+    left: 122px;
+}
+progress{
+    background: red;
+    color: #1d2120;
+    border: 3px solid black;
+    margin-bottom: 6px;
+
+}
+progress::-webkit-progress-value {
+    background: red;
+    border: #1d2120;
+}
+
+
+
+
