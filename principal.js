@@ -5,10 +5,11 @@ window.onload=function () {
     actualizaDatosPersonaje(personaje);
 
 
-    document.getElementById("contenedor").addEventListener("click",function (event) {
-        alert(event.clientX)
-        let flecha=document.getElementById("flecha");
-        console.log(flecha)
+    document.getElementById("evento1").addEventListener("click",function (event) {
+        console.log(this)
+        let ventanaCombate=$("#combate");
+        $("#contenedor").css("opacity",0.2)
+        ventanaCombate.show(1200,"easeOutCirc");
 
 
     })

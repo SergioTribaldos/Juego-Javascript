@@ -39,6 +39,30 @@ nav{
     z-index: 100;
 
 }
+#fondoModal{
+    z-index: 650;
+    width: 100%;
+    height: 100%;
+    background: #1d2120;
+}
+#combate{
+    background: url("fondo-combate.png");
+    position: absolute;
+    display: none;
+    top: 120px;
+    left: 270px;
+    height: 500px;
+    width: 900px;
+    z-index: 200;
+    border: 7px solid black;
+
+}
+#navbarCombate{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+
+}
 img{
     height: inherit;
     width: inherit;
@@ -59,6 +83,24 @@ img{
     top: 50px;
     left: 122px;
 }
+.flecha:hover{
+    cursor: pointer;
+}
+#evento1{
+    position: relative;
+    top: 390px;
+    left: 170px;
+}
+
+
+
+
+
+
+
+
+
+
 progress{
     background: red;
     color: #1d2120;
