@@ -29,6 +29,12 @@ body{
     border-radius: 10px 10px 10px 10px;
     outline: none;
 }
+.botonDefault:hover{
+    transform: scale(1.1);
+    transition-duration: 0.5s;
+    opacity: 1.8;
+    cursor: pointer;
+}
 .botonEmpiezaAventura{
     width: 300px;
     text-decoration: none;

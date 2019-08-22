@@ -5,7 +5,7 @@ window.onload=function () {
             this.nivel=1;
             this.maxVida=this.nivel*100;
             this.vida=this.maxVida;
-            this.maxMana=this.nivel*30;
+            this.maxMana=this.nivel*60;
             this.mana=this.maxMana
             this.ataque=this.nivel*3;
             this.defensa=this.nivel*2
@@ -13,10 +13,12 @@ window.onload=function () {
             this.magias=[
                 {nombre:"Bola de fuego",
                 tipo:"fuego",
-                mana:20},
+                mana:15,
+                daño:30},
                 {nombre:"Rayo",
                 tipo:"Rayo",
-                mana:25}
+                mana:10,
+                daño:20}
             ]
 
         }
