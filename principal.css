@@ -16,7 +16,7 @@ nav{
     display: inline;
     font-weight: bolder;
     font-size: 140%;
-    margin-left: 160px;
+    margin-left: 100px;
 }
 #datosPersonaje span{
     font-size: 160%;
@@ -28,15 +28,18 @@ nav{
 #datosPersonaje li:nth-child(3) span {
     color: blue;
 }
-progress{
-    background: red;
+.progresoVida,.progresoMana{
     color: #1d2120;
     border: 3px solid black;
     margin-bottom: 6px;
 
 }
-progress::-webkit-progress-value {
+.progresoVida::-webkit-progress-value {
     background: red;
+    border: #1d2120;
+}
+.progresoMana::-webkit-progress-value {
+    background: blue;
     border: #1d2120;
 }
 /*MAPA PRINCIPAL */
