@@ -1,53 +1,66 @@
 window.onload = function () {
 
-    var personaje = JSON.parse(localStorage.getItem("personaje"))
+    var personaje = JSON.parse(localStorage.getItem("personaje"));
+    var actionIsHappening = false;
+
     actualizaDatosPersonaje(personaje);
 
-
-    $("#evento1").click(function (event) {
-        muestraVentanaCombate();
-
-    })
-
     ////////EVENTO BOTON DE MAGIA/////////
-    $("#botonMagia").click(function () {
+    $("#botonMagia").click(function() {
         $("#navbarCombate").hide(300);
-        $("#navbarMagias").show(400)
+        $("#navbarMagias").show(400);
 
         personaje.magias.forEach(function (elem, index) {
-            let boton = `<div class="botonDefault botonMagia" id="magia${index}"><h2>${elem.nombre}</h2>
-                                                            <p>Mana: ${elem.mana}</p></div>`;
-
+            let boton = `
+                <div class="botonDefault botonMagia" id="magia${index}">
+                    <h2>${elem.nombre}</h2>
+                    <p>Mana: ${elem.mana}</p>
+                </div>
+            `;
             $("#navbarMagias").append(boton);
-            $("#magia" + index).on("click", function () {
-                ataqueMagico(elem)
+            $("#magia" + index).on("click", function() {
+                if (!actionIsHappening) {
+                    actionIsHappening = true;
+                    ataqueMagico(elem).then( () => {
+                        personaje.mana -= elem.mana;
+                        actualizaDatosPersonaje(personaje)
+                        actionIsHappening = false;
+                    })
+                }
             })
-
-
         })
     });
 
+    var actionButtons = $('.buttonDefault');
+
     ////////EVENTO BOTON ATAQUE FISICO///////
     $("#botonAtaque").click(function () {
-        ataqueFisico();
-        actualizaDatosPersonaje(personaje);
-
-    });
-
-    ////////EVENTO BOTON ESCAPAR///////
-    $("#botonEscapar").click(function () {
+        if (!actionIsHappening) {
+            actionIsHappening = true;
+                ataqueFisico().then( () => {
+                    actualizaDatosPersonaje(personaje);
+                    actionIsHappening = false;
+                });
+            }
+        }
+    );
+    
+    /////// TODO separar funciones ///////
+    const escapar = () => {
         muestraInfoCombate(`${personaje.nombre} intenta escapar...`,`Consigue escapar!`);
-        setTimeout(ocultaVentanaCombate,4700);
+        setTimeout(ocultaVentanaCombate, 4700);
         actualizaDatosPersonaje(personaje);
+    }
 
-    });
-
-
-    function muestraVentanaCombate() {
+    const muestraVentanaCombate = () => {
         let ventanaCombate = $("#combate");
         $("#contenedor").css("opacity", 0.2)
         ventanaCombate.toggle("explode",400)
     }
+
+    ////////EVENTO BOTON ESCAPAR///////
+    $("#botonEscapar").click(escapar);
+    $("#evento1").click(muestraVentanaCombate);
 
     function ocultaVentanaCombate(){
         let ventanaCombate = $("#combate");
@@ -56,18 +69,20 @@ window.onload = function () {
     }
 
     function muestraInfoCombate(string, stringDaño) {
-        $("#infoCombate").html(string).show().animate({fontSize: 40}, {
-            duration: 2000,
-            complete() {
-
-                $("#infoCombate").css({
-                    "display": "none"
-                }).show(1000).html(stringDaño).css("fontSize",40)
-            }
-        })
-        setTimeout(function () {
-            $("#infoCombate").hide().css("fontSize",20)
-        }, 4500)
+        return new Promise( function(resolve, reject){
+            $("#infoCombate").html(string).show().animate({fontSize: 40}, {
+                duration: 2000,
+                complete() {
+                    $("#infoCombate").css({
+                        "display": "none"
+                    }).show(1000).html(stringDaño).css("fontSize",40)
+                }
+            });
+            setTimeout(function () {
+                $("#infoCombate").hide().css("fontSize",20);
+                resolve();
+            }, 4500)
+        });
 
     }
 
@@ -75,16 +90,14 @@ window.onload = function () {
         if (personaje.mana < magia.mana) {
             alert("No te queda mana")
         } else {
-            muestraInfoCombate(`${personaje.nombre} usa ${magia.nombre}`, `${magia.nombre} causa ${magia.daño} puntos de daño!`)
-            personaje.mana -= magia.mana;
-            actualizaDatosPersonaje(personaje)
+            return muestraInfoCombate(`${personaje.nombre} usa ${magia.nombre}`, `${magia.nombre} causa ${magia.daño} puntos de daño!`);
         }
 
 
     }
 
     function ataqueFisico(){
-        muestraInfoCombate(`${personaje.nombre} ataca...`,`Causa ${personaje.ataque} puntos de daño!`)
+        return muestraInfoCombate(`${personaje.nombre} ataca...`,`Causa ${personaje.ataque} puntos de daño!`); 
     }
 
     function actualizaDatosPersonaje(personaje) {

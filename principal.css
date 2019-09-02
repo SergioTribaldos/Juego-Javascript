@@ -109,14 +109,38 @@ img{
     position: absolute;
     top: 50px;
     left: 122px;
+    display: none;
 }
+
+.flecha.current {
+    display: block;
+}
+
 .flecha:hover{
     cursor: pointer;
 }
 #evento1{
     position: relative;
+    display: inline;
     top: 390px;
     left: 170px;
+    animation-name: arrowMovement;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+}
+
+@keyframes arrowMovement {
+    0% {
+        top: 390px;
+    }
+    
+    50% {
+        top: 400px;
+    }
+    
+    100% {
+        top: 390px;
+    }
 }
 
 
