@@ -2,6 +2,13 @@ window.onload = function () {
 
     var personaje = JSON.parse(localStorage.getItem("personaje"));
     var actionIsHappening = false;
+    var actionPerformed = false;
+    var eventos =[
+        {
+            img:"enemy1.png",
+            life:100,
+        }
+    ]
 
     actualizaDatosPersonaje(personaje);
 
@@ -21,11 +28,17 @@ window.onload = function () {
             $("#magia" + index).on("click", function() {
                 if (!actionIsHappening) {
                     actionIsHappening = true;
-                    ataqueMagico(elem).then( () => {
+                    //showSpellEffect();
+                    ataqueMagico(elem)
+                        .then( () => {
                         personaje.mana -= elem.mana;
                         actualizaDatosPersonaje(personaje)
                         actionIsHappening = false;
                     })
+                        .then(()=>{
+                            $("#navbarMagias").hide(300).empty();
+                            $("#navbarCombate").show(400);
+                        })
                 }
             })
         })
@@ -58,9 +71,21 @@ window.onload = function () {
         ventanaCombate.toggle("explode",400)
     }
 
-    ////////EVENTO BOTON ESCAPAR///////
+    const fight = (enemy) => {
+        enemy = enemy.data.enemy;
+        muestraVentanaCombate();
+
+        while(enemy.life>0&&personaje.vida>0){
+            return new Promise(function (resolve, reject) {
+                
+            })
+
+        }
+    }
+
+    
     $("#botonEscapar").click(escapar);
-    $("#evento1").click(muestraVentanaCombate);
+    $("#evento1").on("click",{enemy: eventos[0]},fight);
 
     function ocultaVentanaCombate(){
         let ventanaCombate = $("#combate");
@@ -84,6 +109,13 @@ window.onload = function () {
             }, 4500)
         });
 
+    }
+
+    function showSpellEffect(){
+        let enemy = $("#enemy-img")
+        enemy.animate({
+            opacity:0.25,
+        },1000);
     }
 
     function ataqueMagico(magia) {
