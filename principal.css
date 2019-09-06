@@ -50,7 +50,6 @@ nav{
     width: 1200px;
     background-image: url("mapa.jpg");
     background-size: cover;
-    z-index: 100;
 
 }
 /*COMBATE*/
@@ -62,7 +61,7 @@ nav{
     left: 270px;
     height: 500px;
     width: 900px;
-    z-index: 200;
+    z-index: 100;
     border: 7px solid black;
 
 }
@@ -107,21 +106,19 @@ img{
     width: 50px;
     border: none;
     position: absolute;
-    top: 50px;
-    left: 122px;
+
     display: none;
 }
 
-.flecha.current {
+.current {
     display: block;
 }
 
 .flecha:hover{
     cursor: pointer;
 }
-#evento1{
-    position: relative;
-    display: inline;
+#evento0{
+
     top: 390px;
     left: 170px;
     animation-name: arrowMovement;
@@ -129,6 +126,12 @@ img{
     animation-iteration-count: infinite;
 }
 
+#evento1{
+    top: 197px;
+    left: 146px;
+}
+
+/*
 @keyframes arrowMovement {
     0% {
         top: 390px;
@@ -141,22 +144,26 @@ img{
     100% {
         top: 390px;
     }
-}
+}*/
 
 
 /*////PLAYER/////*/
-
-#player-img{
-    border: none;
-    height: 200px;
-    width: 200px;
-    position: relative;
-    top: 170px;
+#playerDiv{
+    position: absolute;
+    top: 246px;
     left: 80px;
     animation-name: playerMovement;
     animation-duration: 500ms;
     animation-iteration-count: infinite;
 }
+
+#player-img{
+    border: none;
+    height: 200px;
+    width: 200px;
+
+}
+
 
 @keyframes playerMovement {
     0% {
@@ -173,18 +180,28 @@ img{
 }
 
 /*////ENEMY/////*/
-
-#enemy-img{
-    border: none;
-    height: 200px;
-    width: 200px;
-    position: relative;
+#enemyDiv{
+    position: absolute;
     float: right;
-    top: 170px;
+    top: 220px;
     right: 80px;
     animation-name: enemyMovement;
     animation-duration: 500ms;
     animation-iteration-count: infinite;
+    z-index: 5000;
+}
+#enemy-img{
+    border: none;
+    height: 200px;
+    width: 200px;
+
+
+}
+#enemyLifeBar{
+    display: block;
+    width: 60%;
+    margin: auto;
+    margin-bottom: 10px;
 }
 
 @keyframes enemyMovement {
