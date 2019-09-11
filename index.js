@@ -1,15 +1,15 @@
 window.onload=function () {
      class Personaje{
-        constructor(nombre) {
+        constructor(nombre,nivel) {
             this.nombre=nombre;
-            this.nivel=1;
+            this.nivel=nivel;
             this.maxVida=this.nivel*100;
             this.vida=this.maxVida;
             this.maxMana=this.nivel*60;
             this.mana=this.maxMana
             this.ataque=this.nivel*3;
-            this.defensa=this.nivel*2
             this.experiencia=0;
+            this.siguienteNivel=100;
             this.magias=[
                 {
                     nombre:"Bola de fuego",
@@ -29,6 +29,6 @@ window.onload=function () {
 
     document.getElementById("empiezaAventura").addEventListener("click", function() {
         let nombrePersonaje=document.getElementById("inputNombre").value;
-        window.localStorage.setItem("personaje",JSON.stringify(new Personaje(nombrePersonaje)));
+        window.localStorage.setItem("personaje",JSON.stringify(new Personaje(nombrePersonaje,1)));
     })
 }
