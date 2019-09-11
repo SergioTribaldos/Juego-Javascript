@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
+body{
+    background-color: #5a5c51;
+    margin: 0px;
+}
+#titulo{
+    text-align: center;
+    font-family: 'Amatic SC', cursive;
+    font-size: 100px;
+
+}
+#titulo h1{
+    border-bottom: 1px solid #ba9077;
+}
+#titulo span{
+    border-bottom: 2px solid #ba9077;
+}
+
+.botonDefault{
+    width: 150px;
+    height: 60px;
+    border: 2px solid #ba9077;
+    background: #1d2120;
+    color: #c9c5aa;
+    font-family: 'Amatic SC', cursive;
+    font-size: 140%;
+    font-weight: bolder;
+    letter-spacing: 3px;
+    border-radius: 10px 10px 10px 10px;
+    outline: none;
+}
+.botonDefault:hover{
+    transform: scale(1.1);
+    transition-duration: 0.5s;
+    opacity: 1.8;
+    cursor: pointer;
+}
+.botonEmpiezaAventura{
+    width: 300px;
+    text-decoration: none;
+
+}
+.botonEmpiezaAventura:visited{
+    color: inherit;
+}
+.botonEmpiezaAventura:hover{
+    transform: scale(1.4);
+    transition-duration: 2s;
+}
+#creaPersonaje{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#inputNombre{
+    opacity: 0.7;
+    height: 45px;
+    padding-left: 7px;
+    margin-bottom: 80px;
+}

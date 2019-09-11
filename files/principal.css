@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
+
+/*BARRA DE NAVEGACION*/
+nav{
+    border-bottom: 2px solid #1d2120;
+    background: #ba9077;
+    height: 60px;
+
+}
+#datosPersonaje {
+    margin-top: 0px;
+    padding-top: 9px;
+}
+#datosPersonaje li{
+    font-family: 'Amatic SC', cursive;
+    display: inline;
+    font-weight: bolder;
+    font-size: 140%;
+    margin-left: 6%;
+}
+#datosPersonaje span{
+    font-size: 160%;
+    margin-right: 9px;
+}
+#datosPersonaje li:nth-child(2) span {
+    color: crimson;
+}
+#datosPersonaje li:nth-child(3) span {
+    color: blue;
+}
+.progresoVida,.progresoMana{
+    color: #1d2120;
+    border: 3px solid black;
+    margin-bottom: 6px;
+
+}
+.progresoVida::-webkit-progress-value {
+    background: red;
+    border: #1d2120;
+}
+.progresoMana::-webkit-progress-value {
+    background: blue;
+    border: #1d2120;
+}
+/*MAPA PRINCIPAL */
+#contenedor{
+    position: relative;
+    margin: auto;
+    height: 600px;
+    width: 1200px;
+    background-image: url("../img/mapa.jpg");
+    background-size: cover;
+
+}
+
+/*COMBATE*/
+#combate{
+    background: url("../img/fondo-combate.png");
+    position: absolute;
+    display: none;
+    top: 120px;
+    left: 270px;
+    height: 500px;
+    width: 900px;
+    z-index: 100;
+    border: 7px solid black;
+
+}
+#navbarCombate,#navbarMagias{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 10px;
+
+}
+img{
+    height: inherit;
+    width: inherit;
+    object-fit: contain;
+    border: 2px solid black;
+    margin: 0 auto;
+    justify-content: center;
+}
+.botonMagia{
+    text-align: center;
+    font-size: 90%;
+    line-height: 7px;
+
+}
+#cerrarMagias{
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    font-family: Consolas;
+    line-height: 1.4;
+    padding-left: 0.1em;
+}
+#infoCombate{
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    font-size: 20px;
+    color: #c9c5aa;
+    font-weight: bolder;
+    font-family: 'Amatic SC', cursive;
+    z-index: 500;
+}
+/*GAME OVER*/
+#gameOver{
+    width: 100%;
+    height: 0%;
+    background: #1d2120;
+    color: whitesmoke;
+    font-size: 130px;
+    position: absolute;
+    top: 40%;
+    text-align: center;
+    line-height: 0.93;
+}
+
+/*FLECHA*/
+
+.flecha{
+    height: 50px;
+    width: 50px;
+    border: none;
+    position: absolute;
+
+    display: none;
+}
+
+.current {
+    display: block;
+}
+
+.flecha:hover{
+    cursor: pointer;
+}
+#evento0{
+
+    top: 390px;
+    left: 170px;
+    animation-name: arrowMovement;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+}
+
+#evento1{
+    top: 197px;
+    left: 146px;
+}
+#evento2{
+    top: 283px;
+    left: 308px;
+}
+
+/*
+@keyframes arrowMovement {
+    0% {
+        top: 390px;
+    }
+    
+    50% {
+        top: 400px;
+    }
+    
+    100% {
+        top: 390px;
+    }
+}*/
+
+
+/*////PLAYER/////*/
+#playerDiv{
+    position: absolute;
+    top: 246px;
+    left: 80px;
+    animation-name: playerMovement;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+}
+
+#player-img{
+    border: none;
+    height: 200px;
+    width: 200px;
+
+}
+
+
+@keyframes playerMovement {
+    0% {
+        left: 80px;
+    }
+
+    50% {
+        left: 85px;
+    }
+
+    100% {
+        left: 80px;
+    }
+}
+
+/*////ENEMY/////*/
+#enemyDiv{
+    position: absolute;
+    float: right;
+    top: 220px;
+    right: 80px;
+    animation-name: enemyMovement;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    z-index: 5000;
+}
+#enemy-img{
+    border: none;
+    height: 200px;
+    width: 200px;
+
+
+}
+#enemyLifeBar{
+    display: block;
+    width: 60%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+@keyframes enemyMovement {
+    0% {
+        right: 80px;
+    }
+
+    50% {
+        right: 85px;
+    }
+
+    100% {
+        rigth: 80px;
+    }
+}
+/*BOCADILLO*/
+#bocadillo{
+    top: 95px;
+    left: 344px;
+    position: absolute;
+    height: 0px;
+    width: 0px;
+
+
+}
+#bocadillo img {
+    border: none;
+    position: absolute;
+}
+#enemyText{
+position: absolute;
+    top: 66px;
+    left: 47px;
+    z-index: 100;
+    font-weight: bolder;
+    font-family: 'Amatic SC', cursive;
+    font-size: 150%;
+    opacity: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
