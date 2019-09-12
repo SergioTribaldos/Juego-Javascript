@@ -52,10 +52,18 @@ nav{
     background-size: cover;
 
 }
+/*FLECHA SELECCIONANDO LA MUSICA*/
+#hand{
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    left: 200px;
+    top: 200px;
+    z-index: 4000;
+}
 
 /*COMBATE*/
 #combate{
-    background: url("../img/fondo-combate.png");
     position: absolute;
     display: none;
     top: 120px;

@@ -12,9 +12,9 @@ window.onload = function () {
             exp: 110,
             text: "Mis pedacos son nauseabundos",
             attacks: [
-                {name: "Aliento podrido", damage: 5},
-                {name: "Hachazo ponzoñoso", damage: 8},
-                {name: "Pedo de zombie", damage: 15},
+                {name: "Aliento podrido", damage: 21},
+                {name: "Hachazo ponzoñoso", damage: 38},
+                {name: "Pedo de zombie", damage: 45},
 
             ]
         },
@@ -22,15 +22,13 @@ window.onload = function () {
             img: "enemy2.png",
             name: "Caballero raruno",
             maxLife: 12,
-
-
             life: 12,
             exp: 200,
-            text: "Me gusta vestirme de mujer",
+            text: "Seré tu amante bandido",
             attacks: [
-                {name: "Ataque normal", damage: 5},
-                {name: "Golpe de cresta", damage: 8},
-                {name: "Ataque de ojillos", damage: 15},
+                {name: "Ataque normal", damage: 25},
+                {name: "Golpe de cresta", damage: 48},
+                {name: "Ataque de ojillos", damage: 55},
             ]
         },
         {
@@ -39,24 +37,28 @@ window.onload = function () {
             maxLife: 18,
             life: 18,
             exp: 320,
+            text: "Huelo a bacalao",
             attacks: [
-                {name: "Aletazo de aleta", damage: 7},
-                {name: "Lanzamiento de escamas", damage: 10},
-                {name: "Bocado mortifero", damage: 19},
+                {name: "Aletazo de aleta", damage: 37},
+                {name: "Lanzamiento de escamas", damage: 20},
+                {name: "Bocado mortifero", damage: 59},
             ]
         }
     ];
 
-    const playMusic = (theme)=>{
-        if(typeof theme !== "string"){
-            theme=theme.data.song;
+    var backgrounds = ["fondo-combate.png","fondo-combate2.jpg","fondo-combate3.png"]
+
+
+    const playMusic = (theme) => {
+        if (typeof theme !== "string") {
+            theme = theme.data.song;
         }
-        $("#audio").attr("src",`../sounds/${theme}.mp3`).get(0).play();
+        $("#audio").attr("src", `../sounds/${theme}.mp3`).get(0).play();
     };
 
-    const playFX = (sound)=>{
+    const playFX = (sound) => {
 
-        $("#soundFX").attr("src",`../sounds/${sound}.mp3`).get(0).play();
+        $("#soundFX").attr("src", `../sounds/${sound}.mp3`).get(0).play();
     };
 
     const escapar = () => {
@@ -69,18 +71,28 @@ window.onload = function () {
     const checkEnemyWinCondition = () => {
         let enemy = enemies[enemyNum];
         if (enemy.life <= 0) {
+            playMusic("fanfare");
+            $("#player-img").fadeOut({
+                duration: 100, complete() {
+                    $("#player-img").attr("src", "../img/player-fanfare.png")
+                        .fadeIn("slow")
+                }
+            })
             $("#enemyDiv").animate({opacity: "0"}, 2000);
             let expMessage = checkLevelUp(enemy);
-
             updateCharacterData();
             showCombatInfo(`${player.name} se alza con la victoria!`, expMessage)
                 .then(function () {
-                    hideCombatWindow();
-                    $("#evento" + enemyNum).removeClass("current");
-                    enemyNum++;
-                    $("#evento" + enemyNum).addClass("current");
-                    $("#enemyDiv").css("opacity", "1");
-                    actionIsHappening = false;
+                    setTimeout(() => {
+                        hideCombatWindow();
+                        $("#evento" + enemyNum).removeClass("current");
+                        enemyNum++;
+                        $("#evento" + enemyNum).addClass("current");
+                        $("#enemyDiv").css("opacity", "1");
+                        playMusic("main");
+                        actionIsHappening = false;
+                    }, 2500);
+
                 })
         } else {
             updateCharacterData();
@@ -107,8 +119,9 @@ window.onload = function () {
     }
 
     const showCombatWindow = () => {
+        console.log(backgrounds[Math.floor(Math.random()*backgrounds.length)])
         playMusic("combat")
-
+        $("#combate").css("background-image", `url(../img/${backgrounds[Math.floor(Math.random()*backgrounds.length)]})`);
         updateCharacterData();
         let combatWindow = $("#combate");
         $("#enemy-img").attr("src", "../img/" + enemies[enemyNum].img);
@@ -123,7 +136,7 @@ window.onload = function () {
         let enemy = enemies[enemyNum];
         if (!actionIsHappening) {
             actionIsHappening = true;
-            showCombatInfo(`${player.name} ataca...`, `Causa ${player.attack} puntos de daño!`,"enemy")
+            showCombatInfo(`${player.name} ataca...`, `Causa ${player.attack} puntos de daño!`, "enemy")
                 .then(() => {
                     updateCharacterData(player);
 
@@ -143,7 +156,7 @@ window.onload = function () {
 
         $("#navbarCombate").hide(300);
         $("#navbarMagias").show(400).empty().append(closeButton);
-        $("#cerrarMagias").on("click",closeMagicBar);
+        $("#cerrarMagias").on("click", closeMagicBar);
         player.magic.forEach(function (elem, index) {
             let boton = `
                 <div class="botonDefault botonMagia" id="magia${index}">
@@ -159,8 +172,7 @@ window.onload = function () {
 
                     magicAttack(elem)
                         .then(() => {
-                            showAttackEffect("#enemy-img");
-                            playFX("attack");
+
                             player.mana -= elem.mana;
                             updateCharacterData(player);
                             actionIsHappening = false;
@@ -180,7 +192,7 @@ window.onload = function () {
         let enemy = enemies[enemyNum];
         let randomSelectedAttack = enemy.attacks[Math.floor(Math.random() * enemy.attacks.length)];
         console.log(Math.floor(Math.random() * enemy.attacks.length))
-        showCombatInfo(`${enemy.name} lanza ${randomSelectedAttack.name}`, `Causa ${randomSelectedAttack.damage} puntos de daño`,"player")
+        showCombatInfo(`${enemy.name} lanza ${randomSelectedAttack.name}`, `Causa ${randomSelectedAttack.damage} puntos de daño`, "player")
             .then(() => {
                 player.life -= randomSelectedAttack.damage;
                 updateCharacterData();
@@ -229,7 +241,7 @@ window.onload = function () {
     };
 
 
-    const showCombatInfo = (string, damageString,character=" ") => {
+    const showCombatInfo = (string, damageString, character = " ") => {
         return new Promise(function (resolve) {
 
             $("#infoCombate").html(string).show().animate({fontSize: 40}, {
@@ -238,9 +250,9 @@ window.onload = function () {
                     $("#infoCombate").css({
                         "display": "none"
                     }).show(500).html(damageString).css("fontSize", 40);
-                    if(character!==" "){
+                    if (character !== " ") {
                         showAttackEffect(`#${character}-img`);
-                        playFX("attack");
+                       playFX("attack");
                         console.log(character)
                     }
 
@@ -268,11 +280,11 @@ window.onload = function () {
         if (player.mana < magic.mana) {
             alert("No te queda mana")
         } else {
-            return showCombatInfo(`${player.name} usa ${magic.name}`, `${magic.name} causa ${magic.damage} puntos de daño!`,"enemy");
+            return showCombatInfo(`${player.name} usa ${magic.name}`, `${magic.name} causa ${magic.damage} puntos de daño!`, "enemy");
         }
     };
 
-    const closeMagicBar = ()=>{
+    const closeMagicBar = () => {
         $("#navbarMagias").hide(300).empty();
         $("#navbarCombate").show(400);
     };
@@ -312,12 +324,10 @@ window.onload = function () {
 
     updateCharacterData(player);
 
-
     $("#botonEscapar").on("click", escapar);
     $("#botonAtaque").on("click", physicAttack);
     $("#botonMagia").on("click", showMagicButtons);
-    $("#playMusic").on("click",{song:"main"},playMusic);
-
+    $("#playMusic").on("click", {song: "main"}, playMusic);
 
 
     $("#evento0").on("click", showCombatWindow);
