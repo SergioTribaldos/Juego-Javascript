@@ -12,9 +12,9 @@ window.onload = function () {
             exp: 110,
             text: "Mis pedacos son nauseabundos",
             attacks: [
-                {name: "Aliento podrido", damage: 21},
-                {name: "Hachazo ponzoñoso", damage: 38},
-                {name: "Pedo de zombie", damage: 45},
+                {name: "Aliento podrido", damage: 3321},
+                {name: "Hachazo ponzoñoso", damage: 3338},
+                {name: "Pedo de zombie", damage: 3345},
 
             ]
         },
@@ -46,7 +46,7 @@ window.onload = function () {
         }
     ];
 
-    var backgrounds = ["fondo-combate.png","fondo-combate2.jpg","fondo-combate3.png"]
+    var backgrounds = ["fondo-combate.png", "fondo-combate2.jpg", "fondo-combate3.png"]
 
 
     const playMusic = (theme) => {
@@ -62,9 +62,10 @@ window.onload = function () {
     };
 
     const escapar = () => {
-        showCombatInfo(`${player.name} intenta escapar...`, `Consigue escapar!`);
-        setTimeout(hideCombatWindow, 4700);
-        updateCharacterData(player);
+        showCombatInfo(`${player.name} intenta escapar...`, `Consigue escapar!`)
+            .then(function () {
+                showGameOver()
+            })
     };
 
 
@@ -105,23 +106,14 @@ window.onload = function () {
 
     const checkPlayerWinCondition = () => {
         if (player.life <= 0) {
-
-            $("#combate,#contenedor,nav").hide("explode", {pieces: 14}, 1200);
-
-            setTimeout(function () {
-                let gameOver = `<div id="gameOver">GAME OVER</div>`;
-                $("body").append(gameOver);
-                $("#gameOver").animate({height: "20%"}, 1000)
-            }, 1300);
-
-
+            showGameOver();
         }
     }
 
     const showCombatWindow = () => {
-        console.log(backgrounds[Math.floor(Math.random()*backgrounds.length)])
+        console.log(backgrounds[Math.floor(Math.random() * backgrounds.length)])
         playMusic("combat")
-        $("#combate").css("background-image", `url(../img/${backgrounds[Math.floor(Math.random()*backgrounds.length)]})`);
+        $("#combate").css("background-image", `url(../img/${backgrounds[Math.floor(Math.random() * backgrounds.length)]})`);
         updateCharacterData();
         let combatWindow = $("#combate");
         $("#enemy-img").attr("src", "../img/" + enemies[enemyNum].img);
@@ -206,6 +198,7 @@ window.onload = function () {
         let ventanaCombate = $("#combate");
         $("#contenedor").css("opacity", 1);
         ventanaCombate.toggle("explode", 400);
+        $("#player-img").attr("src", "../img/player.png")
 
     };
 
@@ -252,7 +245,7 @@ window.onload = function () {
                     }).show(500).html(damageString).css("fontSize", 40);
                     if (character !== " ") {
                         showAttackEffect(`#${character}-img`);
-                       playFX("attack");
+                        playFX("attack");
                         console.log(character)
                     }
 
@@ -275,6 +268,20 @@ window.onload = function () {
 
         }
     };
+
+    const showGameOver = () => {
+        $("#playerDiv").animate({opacity: "0"}, 2000);
+
+        setTimeout(() => {
+            let gameOver = `<div id="gameOver">GAME OVER</div>`;
+            $("body").append(gameOver);
+            $("#gameOver").animate({height: "20%"}, 1000)
+            $("#combate,#contenedor,nav").hide("explode", {pieces: 14}, 1200).remove();
+            playMusic("game-over")
+        }, 2500)
+
+
+    }
 
     const magicAttack = (magic) => {
         if (player.mana < magic.mana) {

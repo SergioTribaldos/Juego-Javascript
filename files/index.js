@@ -22,6 +22,12 @@ window.onload=function () {
                     type:"Rayo",
                     mana:10,
                     damage:20
+                },
+                {
+                    name:"Hielo",
+                    type:"Hielo",
+                    mana:20,
+                    damage:40
                 }
             ]
         }
